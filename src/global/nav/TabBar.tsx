@@ -3,38 +3,47 @@ import Page from 'src/models/page';
 import { BottomNavigation, BottomNavigationAction } from '@material-ui/core';
 import { withRouter, RouteComponentProps } from 'react-router';
 import { Link } from 'react-router-dom';
-import {
-  StyleRules,
-  withStyles,
-  StyledComponentProps
-} from '@material-ui/core/styles';
+import { StyleRules, withStyles, WithStyles } from '@material-ui/core/styles';
 
 const styles: StyleRules = {
-  root: {},
+  root: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+  },
 };
 
-interface TabBarProps extends RouteComponentProps, StyledComponentProps {
+interface TabBarProps extends RouteComponentProps, WithStyles {
   pages: Page[];
 }
 
-const TabBar: React.SFC<TabBarProps> = ({ pages, location, classes }) => (
-  <BottomNavigation
-    value={location.pathname}
-    className={classes!.root}
-  >
-    {pages.map(page => (
-      <BottomNavigationAction
-        key={page.route}
-        showLabel
-        label={page.name}
-        value={page.route}
-        icon={page.icon}
-        // @ts-ignore
-        to={page.route}
-        component={Link}
-      />
-    ))}
-  </BottomNavigation>
-);
+function wrapLink(url: string) {
+  return props => <Link to={url} {...props} />;
+}
+
+class TabBar extends React.PureComponent<TabBarProps> {
+  public render() {
+    const {
+      pages,
+      location: { pathname },
+      classes: { root },
+    } = this.props;
+
+    return (
+      <BottomNavigation value={pathname} className={root}>
+        {pages.map(({ route, name, icon }) => (
+          <BottomNavigationAction
+            key={route}
+            showLabel
+            label={name}
+            value={route}
+            icon={icon}
+            component={wrapLink(route)}
+          />
+        ))}
+      </BottomNavigation>
+    );
+  }
+}
 
 export default withStyles(styles)(withRouter(TabBar));

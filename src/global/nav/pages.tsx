@@ -1,8 +1,10 @@
 import * as React from 'react';
-import HomeIcon from '@material-ui/icons/Home';
-import CalenarTodayIcon from '@material-ui/icons/CalendarToday';
-import DirectionsCarIcon from '@material-ui/icons/DirectionsCar';
-import VpnKeyIcon from '@material-ui/icons/VpnKey';
+import {
+  Home as HomeIcon,
+  CalendarToday as CalendarTodayIcon,
+  DirectionsCar as DirectionsCarIcon,
+  VpnKey as VpnKeyIcon
+} from '@material-ui/icons';
 
 import Page from 'src/models/page';
 import HomePage from 'src/pages/home/HomePage';
@@ -15,25 +17,25 @@ const pages: Page[] = [
     name: 'Home',
     route: '/home',
     component: HomePage,
-    icon: <HomeIcon/>,
+    icon: <HomeIcon />,
   },
   {
     name: 'Habits',
     route: '/habits',
     component: HabitsPage,
-    icon: <CalenarTodayIcon/>,
+    icon: <CalendarTodayIcon />,
   },
   {
     name: 'Driving Log',
     route: '/driving',
     component: DrivingPage,
-    icon: <DirectionsCarIcon/>,
+    icon: <DirectionsCarIcon />,
   },
   {
     name: 'Passpass',
     route: '/passpass',
     component: PasspassPage,
-    icon: <VpnKeyIcon/>,
+    icon: <VpnKeyIcon />,
   },
 ];
 

@@ -6,9 +6,8 @@ import {
   withStyles,
   IconButton
 } from '@material-ui/core';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import { StyleRules, StyledComponentProps } from '@material-ui/core/styles';
-import { withRouter, RouteComponentProps } from 'react-router';
+import { ArrowBack as ArrowBackIcon } from '@material-ui/icons';
+import { StyleRules, WithStyles } from '@material-ui/core/styles';
 
 const styles: StyleRules = {
   root: {},
@@ -17,23 +16,24 @@ const styles: StyleRules = {
   },
 };
 
-interface TitleBarProps extends RouteComponentProps, StyledComponentProps {
+interface TitleBarProps extends WithStyles {
   title: string;
+  displayBack: boolean;
 }
 
-class TitleBar extends React.Component<TitleBarProps, {}> {
+class TitleBar extends React.PureComponent<TitleBarProps> {
   public render() {
-    const { title, classes, location } = this.props;
-    // TODO: set title from route or props?
-    const path = location.pathname;
+    const {
+      title,
+      displayBack,
+      classes: { root, grow },
+    } = this.props;
 
     return (
-      <AppBar position="static" className={classes!.root}>
+      <AppBar position="static" className={root}>
         <Toolbar>
-          <IconButton>
-            {path.split('/').length > 2 && <ArrowBackIcon />}
-          </IconButton>
-          <Typography variant="h6" color="inherit" className={classes!.grow}>
+          <IconButton>{displayBack && <ArrowBackIcon />}</IconButton>
+          <Typography variant="h6" color="inherit" className={grow}>
             {title}
           </Typography>
         </Toolbar>
@@ -42,4 +42,4 @@ class TitleBar extends React.Component<TitleBarProps, {}> {
   }
 }
 
-export default withStyles(styles)(withRouter(TitleBar));
+export default withStyles(styles)(TitleBar);
