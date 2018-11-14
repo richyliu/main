@@ -13,37 +13,30 @@ const styles: StyleRules = {
   },
 };
 
-interface TabBarProps extends RouteComponentProps, WithStyles {
-  pages: Page[];
-}
-
-function wrapLink(url: string) {
-  return props => <Link to={url} {...props} />;
-}
-
-class TabBar extends React.PureComponent<TabBarProps> {
-  public render() {
-    const {
-      pages,
-      location: { pathname },
-      classes: { root },
-    } = this.props;
-
-    return (
-      <BottomNavigation value={pathname} className={root}>
-        {pages.map(({ route, name, icon }) => (
-          <BottomNavigationAction
-            key={route}
-            showLabel
-            label={name}
-            value={route}
-            icon={icon}
-            component={wrapLink(route)}
-          />
-        ))}
-      </BottomNavigation>
-    );
+const TabBar: React.FunctionComponent<
+  {
+    pages: Page[];
+  } & RouteComponentProps &
+    WithStyles
+> = ({ pages, location: { pathname }, classes }) => {
+  function wrapLink(url: string) {
+    return props => <Link to={url} {...props} />;
   }
-}
+
+  return (
+    <BottomNavigation value={pathname} className={classes.root}>
+      {pages.map(({ route, name, icon }) => (
+        <BottomNavigationAction
+          key={route}
+          showLabel
+          label={name}
+          value={route}
+          icon={icon}
+          component={wrapLink(route)}
+        />
+      ))}
+    </BottomNavigation>
+  );
+};
 
 export default withStyles(styles)(withRouter(TabBar));

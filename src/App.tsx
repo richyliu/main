@@ -23,24 +23,18 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
   },
 });
 
-class App extends React.Component<WithStyles> {
-  public render() {
-    const {
-      classes: { root, pageContent },
-    } = this.props;
-
-    return (
-      <div className={root}>
-        <div className={pageContent}>
-          <Switch>
-            {pages.map(({ route, component }) => (
-              <Route exact path={route} component={component} key={route} />
-            ))}
-          </Switch>
-        </div>
-        <TabBar pages={pages} />
+const App: React.FunctionComponent<WithStyles> = ({ classes }) => {
+  return (
+    <div className={classes.root}>
+      <div className={classes.pageContent}>
+        <Switch>
+          {pages.map(({ route, component }) => (
+            <Route exact path={route} component={component} key={route} />
+          ))}
+        </Switch>
       </div>
-    );
-  }
-}
+      <TabBar pages={pages} />
+    </div>
+  );
+};
 export default withStyles(styles)(App);
