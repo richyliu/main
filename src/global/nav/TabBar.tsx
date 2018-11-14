@@ -1,9 +1,16 @@
 import * as React from 'react';
-import Page from 'src/models/page';
-import { BottomNavigation, BottomNavigationAction } from '@material-ui/core';
 import { withRouter, RouteComponentProps } from 'react-router';
 import { Link } from 'react-router-dom';
-import { StyleRules, withStyles, WithStyles } from '@material-ui/core/styles';
+
+import BottomNavigation from '@material-ui/core/BottomNavigation';
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import {
+  default as withStyles,
+  WithStyles,
+  StyleRules
+} from '@material-ui/core/styles/withStyles';
+
+import Page from 'src/models/page';
 
 const styles: StyleRules = {
   root: {

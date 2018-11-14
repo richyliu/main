@@ -1,10 +1,11 @@
 import * as React from 'react';
+import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import {
-  withStyles,
-  StyleRulesCallback,
-  Theme,
-  WithStyles
-} from '@material-ui/core';
+  default as withStyles,
+  WithStyles,
+  StyleRulesCallback
+} from '@material-ui/core/styles/withStyles';
+
 import TitleBar from './nav/TitleBar';
 
 const styles: StyleRulesCallback = (theme: Theme) => ({
@@ -24,12 +25,12 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
 const BasePage: React.FunctionComponent<
   {
     pageTitle: string;
-    displayBack: boolean;
+    displayBack?: boolean;
     fab?: JSX.Element;
   } & WithStyles
 > = ({ classes, children, pageTitle, displayBack, fab }) => (
   <div>
-    <TitleBar title={pageTitle} displayBack={displayBack} />
+    <TitleBar title={pageTitle} displayBack={!!displayBack} />
     <div className={classes.content}>{children}</div>
     <div className={classes.fab}>{fab}</div>
   </div>

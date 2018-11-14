@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Button } from '@material-ui/core';
-import { Add as AddIcon } from '@material-ui/icons';
+import Button from '@material-ui/core/Button';
+import AddIcon from '@material-ui/icons/Add';
 
 export default class AddCardButton extends React.PureComponent<{
   onClick: () => void;

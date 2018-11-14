@@ -1,10 +1,8 @@
 import * as React from 'react';
-import {
-  Home as HomeIcon,
-  CalendarToday as CalendarTodayIcon,
-  DirectionsCar as DirectionsCarIcon,
-  VpnKey as VpnKeyIcon
-} from '@material-ui/icons';
+import HomeIcon from '@material-ui/icons/Home';
+import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
+import DirectionsCarIcon from '@material-ui/icons/DirectionsCar';
+import VpnKeyIcon from '@material-ui/icons/VpnKey';
 
 import Page from 'src/models/page';
 import HomePage from 'src/pages/home/HomePage';

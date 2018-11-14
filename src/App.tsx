@@ -1,14 +1,15 @@
 import * as React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import { withStyles } from '@material-ui/core';
+
+import {
+  default as withStyles,
+  WithStyles,
+  StyleRulesCallback
+} from '@material-ui/core/styles/withStyles';
+import { Theme } from '@material-ui/core/styles/createMuiTheme';
 
 import pages from './global/nav/pages';
 import TabBar from './global/nav/TabBar';
-import {
-  WithStyles,
-  StyleRulesCallback,
-  Theme
-} from '@material-ui/core/styles';
 
 const styles: StyleRulesCallback = (theme: Theme) => ({
   // ensure page content takes up most of the space
