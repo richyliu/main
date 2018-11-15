@@ -26,13 +26,20 @@ const BasePage: React.FunctionComponent<
   {
     pageTitle: string;
     displayBack?: boolean;
+    menuItems?: JSX.Element;
     fab?: JSX.Element;
   } & WithStyles
-> = ({ classes, children, pageTitle, displayBack, fab }) => (
-  <div>
-    <TitleBar title={pageTitle} displayBack={!!displayBack} />
-    <div className={classes.content}>{children}</div>
-    <div className={classes.fab}>{fab}</div>
-  </div>
-);
+> = ({ classes, children, pageTitle, displayBack, fab, menuItems }) => {
+  return (
+    <div>
+      <TitleBar
+        title={pageTitle}
+        displayBack={Boolean(displayBack)}
+        menuItems={menuItems}
+      />
+      <div className={classes.content}>{children}</div>
+      <div className={classes.fab}>{fab}</div>
+    </div>
+  );
+};
 export default withStyles(styles)(BasePage);
