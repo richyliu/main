@@ -5,7 +5,6 @@ import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 
 import registerServiceWorker from './registerServiceWorker';
 import App from './App';
-import './index.css';
 import theme from './global/styles/theme';
 
 ReactDOM.render(
