@@ -42,7 +42,7 @@ const DrivingPage: React.FunctionComponent<WithStyles> = ({ classes }) => {
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
   const [menuItems, setMenuItems] = useState<any[]>([
     {
-      text: 'Done',
+      text: 'Edit',
       icon: <EditIcon />,
     },
     {

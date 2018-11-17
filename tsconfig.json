@@ -19,7 +19,8 @@
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": false,
     "experimentalDecorators": true,
-    "strictFunctionTypes": true
+    "strictFunctionTypes": true,
+    "esModuleInterop": true
   },
   "exclude": [
     "node_modules",

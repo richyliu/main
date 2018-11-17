@@ -14,8 +14,10 @@ import ButtonMenu from './ButtonMenu';
 const styles: StyleRulesCallback = (theme: Theme) => ({
   content: {
     padding: 20,
-    overflow: 'scroll',
-    maxHeight: window.innerHeight - theme.spacing.unit * 14 - 40,
+    overflowX: 'hidden',
+    overflowY: 'scroll',
+    // subtract height of top menu bar
+    height: `calc(100% - ${theme.spacing.unit * 7 + 40}px)`,
   },
   fab: {
     position: 'absolute',
@@ -41,7 +43,7 @@ const BasePage: React.FunctionComponent<BasePageProps> = ({
   fab,
 }) => {
   return (
-    <div>
+    <React.Fragment>
       <TitleBar
         title={pageTitle}
         left={left}
@@ -51,7 +53,7 @@ const BasePage: React.FunctionComponent<BasePageProps> = ({
       />
       <div className={classes.content}>{children}</div>
       <div className={classes.fab}>{fab}</div>
-    </div>
+    </React.Fragment>
   );
 };
 export default withStyles(styles)(BasePage);

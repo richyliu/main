@@ -1,9 +1,17 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import App from './App';
+import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
-  ReactDOM.unmountComponentAtNode(div);
+import App from './App';
+import theme from './global/styles/theme';
+import renderer from 'react-test-renderer';
+
+test('inits without crashing', () => {
+  renderer.create(
+    <BrowserRouter>
+      <MuiThemeProvider theme={theme}>
+        <App />
+      </MuiThemeProvider>
+    </BrowserRouter>
+  );
 });

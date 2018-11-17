@@ -19,8 +19,7 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
     flexDirection: 'column',
   },
   pageContent: {
-    // flexGrow: 1,
-    maxHeight: window.innerHeight - theme.spacing.unit * 7,
+    height: window.innerHeight - theme.spacing.unit * 7,
   },
 });
 
