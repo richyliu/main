@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --mode development --hot",
-    "build": "webpack --mode production"
+    "start": "webpack-dev-server --mode=development --port=4200 --hot",
+    "build": "webpack --mode=production",
+    "stat": "webpack --json > .stats.json; tail -n +5 .stats.json > stats.json; rm .stats.json"
   },
   "keywords": [],
   "author": "",
@@ -15,8 +16,12 @@
     "@types/node": "^10.12.9",
     "@types/react-router-dom": "^4.3.1",
     "awesome-typescript-loader": "^5.2.1",
+    "fsevents": "^2.0.1",
     "html-webpack-plugin": "^3.2.0",
+    "prettier": "^1.15.2",
+    "prettier-tslint": "^0.4.0",
     "react-hot-loader": "^4.3.12",
+    "tslint": "^5.11.0",
     "typescript": "^3.1.6",
     "webpack": "^4.25.1",
     "webpack-cli": "^3.1.2",
@@ -25,6 +30,7 @@
   "dependencies": {
     "@material-ui/core": "^3.5.1",
     "@material-ui/icons": "^3.0.1",
+    "@material-ui/lab": "^3.0.0-alpha.23",
     "@types/react": "^16.7.6",
     "@types/react-dom": "^16.0.9",
     "date-fns": "^1.29.0",

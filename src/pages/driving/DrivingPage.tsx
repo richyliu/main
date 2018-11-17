@@ -1,27 +1,29 @@
 import * as React from 'react';
+import { useState } from 'react';
 
 import {
   default as withStyles,
   WithStyles,
-  StyleRules
+  StyleRules,
 } from '@material-ui/core/styles/withStyles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import IconButton from '@material-ui/core/IconButton';
 import MenuItem from '@material-ui/core/MenuItem';
-import Collapse from '@material-ui/core/Collapse';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
 
-import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import DoneIcon from '@material-ui/icons/Done';
+import AddIcon from '@material-ui/icons/Add';
 
 import BasePage from 'src/global/BasePage';
-import Drive from 'src/models/driving';
-import * as Time from 'src/helpers/time';
-import { KeyedArray, TransitionStates } from 'src/models/standard';
+import Drive from 'src/models/drive';
+import * as Mock from 'src/helpers/mock';
+import { KeyedArray, BooleanMap } from 'src/models/standard';
+import DrivesList from './DrivesList';
+import AddDriveDialog from './AddDriveDialog';
+import MenuContent from 'src/models/menuContent';
 
 const styles: StyleRules = {
   red: {
@@ -35,89 +37,85 @@ const styles: StyleRules = {
 };
 
 const DrivingPage: React.FunctionComponent<WithStyles> = ({ classes }) => {
-  const [edit, setEdit] = React.useState<boolean>(false);
-  const [drives, setDrives] = React.useState<KeyedArray<Drive>>([
+  const [edit, setEdit] = useState<boolean>(false);
+  const [drives, setDrives] = useState<KeyedArray<Drive>>(Mock.drives);
+  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+  const [menuItems, setMenuItems] = useState<any[]>([
     {
-      duration: 30,
-      time: new Date('2018-09-11'),
-      recordTime: new Date(2018, 9, 11, 9, 14, 24),
-      night: false,
-      supervisor: 'Gang Liu',
-      key: 'r9ce23',
+      text: 'Done',
+      icon: <EditIcon />,
     },
     {
-      duration: 67,
-      time: new Date('2018-09-14'),
-      recordTime: new Date(2018, 9, 14, 16, 3, 24),
-      night: false,
-      supervisor: 'Gang Liu',
-      key: 'r9ce223x3',
-    },
-    {
-      duration: 195,
-      time: new Date('2018-09-20'),
-      recordTime: new Date(2018, 9, 20, 22, 14, 42),
-      night: false,
-      supervisor: 'Gang Liu',
-      key: 'r9cxvl8e23',
+      text: 'Hello',
     },
   ]);
-  const [transitions, setTransitions] = React.useState<TransitionStates>(
-    drives.reduce((map, { key }) => ({ ...map, [key]: false }), {})
-  );
-  console.log({ drives, transitions });
 
-  function toggleEdit() {
-    setEdit(!edit);
+  // stores the event handlers for the menu links
+  const menuItemOnClicks: { onClick: () => void }[] = [
+    {
+      onClick: () => {
+        setMenuItems(
+          // update 0th element to new edit/done text and icon
+          Object.assign([], menuItems, {
+            0: {
+              text: edit ? 'Edit' : 'Done',
+              icon: edit ? <EditIcon /> : <DoneIcon />,
+            },
+          })
+        );
+        setEdit(!edit);
+      },
+    },
+    {
+      onClick: () => {},
+    },
+  ];
+  if (menuItems.length != menuItemOnClicks.length) {
+    console.error({ menuItems, menuItemOnClicks });
+    throw 'Menu items and menu item clicks must be of the same length! (Programmer error)';
   }
 
-  function scheduleDeleteDrive(key: string) {
-    setTransitions({ ...transitions, [key]: true });
-  }
-
-  function deleteDrive(key: string) {
-    setDrives(drives.filter(d => d.key !== key));
-    const { [key]: _, ...others } = transitions;
-    setTransitions(others);
+  function addDrive(newDrive: Drive) {
+    // TODO: add via backend, key should not be randomly generated here
+    setDrives(
+      drives.concat({
+        ...newDrive,
+        key: Math.random()
+          .toString(2)
+          .slice(2),
+      })
+    );
   }
 
   return (
     <BasePage
       pageTitle="Driving Log"
-      menuItems={
-        <div>
-          <MenuItem onClick={toggleEdit}>
-            <ListItemIcon>{edit ? <DoneIcon /> : <EditIcon />}</ListItemIcon>
-            <ListItemText primary={edit ? 'Done' : 'Edit'} />
-          </MenuItem>
-          <MenuItem>Foo</MenuItem>
-          <MenuItem>Foo</MenuItem>
-        </div>
+      right={menuItems.map((menuItem, index) => ({
+        ...menuItem,
+        ...menuItemOnClicks[index],
+      }))}
+      fab={
+        <Button
+          variant="fab"
+          color="secondary"
+          onClick={() => setDialogOpen(true)}
+        >
+          <AddIcon />
+        </Button>
       }
     >
-      <List>
-        {drives.map(drive => (
-          <Collapse
-            in={!transitions[drive.key]}
-            key={drive.key}
-            onExited={() => deleteDrive(drive.key)}
-          >
-            <ListItem>
-              <ListItemText
-                primary={Time.toHourMinute(drive.duration)}
-                secondary={Time.toShortDate(drive.time)}
-              />
-              {edit && (
-                <ListItemSecondaryAction>
-                  <IconButton onClick={() => scheduleDeleteDrive(drive.key)}>
-                    <DeleteIcon />
-                  </IconButton>
-                </ListItemSecondaryAction>
-              )}
-            </ListItem>
-          </Collapse>
-        ))}
-      </List>
+      <DrivesList
+        edit={edit}
+        drives={drives}
+        removeDrive={(key: string) =>
+          setDrives(drives.filter(d => d.key !== key))
+        }
+      />
+      <AddDriveDialog
+        open={dialogOpen}
+        onClose={() => setDialogOpen(false)}
+        addDrive={addDrive}
+      />
     </BasePage>
   );
 };

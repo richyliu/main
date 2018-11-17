@@ -16,3 +16,7 @@ ReactDOM.render(
   document.getElementById('root') as HTMLElement
 );
 registerServiceWorker();
+
+declare const module: any;
+if (module.hot)
+  module.hot.accept();

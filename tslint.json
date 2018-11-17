@@ -1,5 +1,5 @@
 {
-  "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
+  "extends": ["tslint:recommended", "tslint-config-prettier"],
   "defaultSeverity": "warning",
   "rules": {
     "no-console": false,
@@ -25,7 +25,8 @@
         "singleline": "never"
       }
     ],
-    "quotemark": [true, "single", "jsx-double"]
+    "quotemark": [true, "single", "jsx-double"],
+    "import-blacklist": [true, "@material-ui/core", "@material-ui/icons"]
   },
   "linterOptions": {
     "exclude": [

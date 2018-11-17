@@ -1,12 +1,15 @@
 import * as React from 'react';
+
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import {
   default as withStyles,
   WithStyles,
-  StyleRulesCallback
+  StyleRulesCallback,
 } from '@material-ui/core/styles/withStyles';
 
 import TitleBar from './nav/TitleBar';
+import MenuContent from 'src/models/menuContent';
+import ButtonMenu from './ButtonMenu';
 
 const styles: StyleRulesCallback = (theme: Theme) => ({
   content: {
@@ -22,20 +25,29 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
   },
 });
 
-const BasePage: React.FunctionComponent<
-  {
-    pageTitle: string;
-    displayBack?: boolean;
-    menuItems?: JSX.Element;
-    fab?: JSX.Element;
-  } & WithStyles
-> = ({ classes, children, pageTitle, displayBack, fab, menuItems }) => {
+interface BasePageProps extends WithStyles {
+  pageTitle: string;
+  left?: JSX.Element;
+  right?: JSX.Element | MenuContent[];
+  fab?: JSX.Element;
+}
+
+const BasePage: React.FunctionComponent<BasePageProps> = ({
+  classes,
+  children,
+  pageTitle,
+  left,
+  right,
+  fab,
+}) => {
   return (
     <div>
       <TitleBar
         title={pageTitle}
-        displayBack={Boolean(displayBack)}
-        menuItems={menuItems}
+        left={left}
+        right={
+          right instanceof Array ? <ButtonMenu menuItems={right} /> : right
+        }
       />
       <div className={classes.content}>{children}</div>
       <div className={classes.fab}>{fab}</div>

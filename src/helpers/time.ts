@@ -1,4 +1,4 @@
-import { format } from 'date-fns';
+import * as format from 'date-fns/format';
 
 /**
  * Given a duration in minutes, convert to hour minute format (Ex: 1h 23m)
