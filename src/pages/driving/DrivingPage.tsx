@@ -6,12 +6,7 @@ import {
   WithStyles,
   StyleRules,
 } from '@material-ui/core/styles/withStyles';
-import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 
 import EditIcon from '@material-ui/icons/Edit';
 import DoneIcon from '@material-ui/icons/Done';
@@ -19,11 +14,10 @@ import AddIcon from '@material-ui/icons/Add';
 
 import BasePage from 'src/global/BasePage';
 import Drive from 'src/models/drive';
-import * as Mock from 'src/helpers/mock';
-import { KeyedArray, BooleanMap } from 'src/models/standard';
+import { KeyedArray } from 'src/models/standard';
 import DrivesList from './DrivesList';
 import AddDriveDialog from './AddDriveDialog';
-import MenuContent from 'src/models/menuContent';
+import { DriveDatabase } from 'src/util/database';
 
 const styles: StyleRules = {
   red: {
@@ -38,7 +32,7 @@ const styles: StyleRules = {
 
 const DrivingPage: React.FunctionComponent<WithStyles> = ({ classes }) => {
   const [edit, setEdit] = useState<boolean>(false);
-  const [drives, setDrives] = useState<KeyedArray<Drive>>(Mock.drives);
+  const [drives, setDrives] = useState<KeyedArray<Drive>>(DriveDatabase.getAll());
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
   const [menuItems, setMenuItems] = useState<any[]>([
     {

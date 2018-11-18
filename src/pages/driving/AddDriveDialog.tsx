@@ -10,8 +10,8 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TextField from '@material-ui/core/TextField';
 
-import * as Time from 'src/helpers/time';
-import * as Settings from 'src/helpers/settings';
+import * as Time from 'src/util/time';
+import * as Settings from 'src/util/settings';
 import Drive from 'src/models/drive';
 import BasePage from 'src/global/BasePage';
 import BackButton from 'src/global/BackButton';

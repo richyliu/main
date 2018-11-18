@@ -10,7 +10,7 @@ import Collapse from '@material-ui/core/Collapse';
 
 import DeleteIcon from '@material-ui/icons/Delete';
 
-import * as Time from 'src/helpers/time';
+import * as Time from 'src/util/time';
 import { KeyedArray, BooleanMap } from 'src/models/standard';
 import Drive from 'src/models/drive';
 
