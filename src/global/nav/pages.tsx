@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import HomeIcon from '@material-ui/icons/Home';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import DirectionsCarIcon from '@material-ui/icons/DirectionsCar';

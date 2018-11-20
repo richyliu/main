@@ -1,10 +1,10 @@
-import * as React from 'react';
+import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import {
   default as withStyles,
   WithStyles,
-  StyleRulesCallback
+  StyleRulesCallback,
 } from '@material-ui/core/styles/withStyles';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 

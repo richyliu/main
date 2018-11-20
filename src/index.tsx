@@ -1,4 +1,5 @@
-import * as React from 'react';
+import 'src/database/firebase';
+import React from 'react';
 import * as ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
@@ -18,5 +19,4 @@ ReactDOM.render(
 registerServiceWorker();
 
 declare const module: any;
-if (module.hot)
-  module.hot.accept();
+if (module.hot) module.hot.accept();
